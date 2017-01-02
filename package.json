@@ -1,0 +1,22 @@
+{
+  "name": "detest",
+  "version": "0.0.1",
+  "description": "*STUB* unit testing via declaritive examples in code metadata",
+  "main": "./dist/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micimize/detest.git"
+  },
+  "author": "Michael Joseph Rosenthal <rosenthalm93@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/micimize/detest/issues"
+  },
+  "homepage": "https://github.com/micimize/detest#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
