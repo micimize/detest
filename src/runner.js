@@ -1,7 +1,14 @@
-import unitTest from 'ava'
+import tap from 'tap'
+import ava from 'ava'
 import meta from './meta'
 import * as examples from './examples'
 import newMultiMethod from './multimethod'
+
+const runners = {
+  tap: tap.test,
+  ava
+}
+const unitTest = runners[process.env.RUNNER || 'ava']
 
 const arrayify = examples.arrayify
 
@@ -22,11 +29,12 @@ export const runExamples = meta({
       unitTest.todo(`add examples to ${f.name} (${description})`)
     } else {
       unitTest(description, t => {
-        examples.forEach(({input, output}) => {
+        t.plan(examples.length)
+        examples.forEach(({input, output, description: exampleDescription}) => {
           if(typeof output == 'object'){
-            t.deepEqual(f(...arrayify(input)), output);
+            t.deepEqual(f(...arrayify(input)), output, exampleDescription);
           } else {
-            t.is(f(...arrayify(input)), output);
+            t.is(f(...arrayify(input)), output, exampleDescription);
           }
         })
       })

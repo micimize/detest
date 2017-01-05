@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import 'babel-register'
 import test, { runExamples } from './src/runner'
 import * as examples from './src/examples'
@@ -9,6 +8,6 @@ exampleList.forEach(runExamples)
 
 exampleList.forEach(test)
 
-test(examples)
+//test(examples)
 
-test(exampleList)
+//test(exampleList)
