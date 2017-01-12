@@ -1,7 +1,23 @@
 import meta from './meta'
 
+function interleave(array1, array2){
+  if(array1.length >= array2.length){
+    return array1.map((v, i) => (i < array2.length ? [v, array2[i]] : [v])).reduce((a, b) => a.concat(b), [])
+  } else {
+    return array2.map((v, i) => (i < array1.length ? [array1[i], v] : [v])).reduce((a, b) => a.concat(b), [])
+  }
+}
+
+function niceTemplate(strings, ...values){
+  return interleave(
+    strings.map(value => ({type: 'string', value})),
+    values.map(value => ({type: 'value', value}))
+  )
+}
+
 export const keyValue = meta({
   description: 'transforms a { key: value } object into a { key: key, value: value }',
+  //examples: [io`{ key: 'value' } => { key: 'key', value: 'value'}`],
   examples: [{input: [{key: 'value'}], output: { key: 'key', value: 'value' }}]
 })(
   function keyValue(obj){

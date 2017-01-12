@@ -18,6 +18,14 @@ const defaults = f => ({
   description: `nondescript function ${f.name}`
 })
 
+function multiTest(t, f, {input, output, description}){
+  if(typeof output == 'object'){
+    t.deepEqual(f(...arrayify(input)), output, description);
+  } else {
+    t.is(f(...arrayify(input)), output, description);
+  }
+}
+
 export const runExamples = meta({
   description: `Runs examples from the given function's metadata of the format [{ input, output }],
                 comparing them with deepEqual`,
@@ -30,13 +38,7 @@ export const runExamples = meta({
     } else {
       unitTest(description, t => {
         t.plan(examples.length)
-        examples.forEach(({input, output, description: exampleDescription}) => {
-          if(typeof output == 'object'){
-            t.deepEqual(f(...arrayify(input)), output, exampleDescription);
-          } else {
-            t.is(f(...arrayify(input)), output, exampleDescription);
-          }
-        })
+        examples.forEach(example => multiTest(t, f, example))
       })
     }
   }
